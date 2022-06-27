@@ -1,0 +1,39 @@
+train_file: ['/data2/huangcz/genshin/v1_abs/train.pkl']
+test_file: ['/data2/huangcz/genshin/v1_abs/val.pkl']
+eval_file: '/data2/huangcz/genshin/v1_abs/eval_result.pkl'
+image_root: '/data2/huangcz/genshin/v1_abs/images'
+
+## Vision Encoder
+vision_config: 'configs/config_swinB_384.json'
+
+use_clip_vit: False
+#image_res: 384
+#patch_size: 16
+
+use_swin: True
+image_res: 384
+patch_size: 32
+
+
+## Text Encoder
+use_roberta: False
+text_config: 'configs/config_bert.json'  # ['configs/config_bert.json', 'configs/config_roberta.json']
+text_encoder: 'data/bert-base-chinese'  # ['data/bert-base-uncased', 'data/roberta-base']
+
+
+## Training
+batch_size: 4
+max_tokens: 40
+careful_hflip: True  # first check whether 'left' or 'right' in captions
+
+
+## Other Settings
+optimizer: {opt: adamW, lr: 3e-5, weight_decay: 0.01, lr_mult: 2}
+schedular: {sched: linear, lr: 3e-5, epochs: 100, num_warmup_steps: 0.1}
+
+
+
+
+
+
+
