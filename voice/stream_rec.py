@@ -14,6 +14,12 @@ class SpeechRecognizer:
         ans = ans['nbest'][0]['sentence'].replace('<context>','').replace('</context>','')
         return ans
 
+    def test_file(self, file):
+        ans = self.decoder.decode_wav(file)
+        ans = eval(ans)
+        ans = ans['nbest'][0]['sentence'].replace('<context>','').replace('</context>','')
+        return ans
+
 
 if __name__ == '__main__':
     with StreamPatcher() as sp:

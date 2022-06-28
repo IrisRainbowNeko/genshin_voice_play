@@ -1,3 +1,5 @@
+import os
+
 from control import *
 from window_capture import WindowCapture
 
@@ -13,8 +15,13 @@ import argparse
 #监听是否有语音指令
 def voice_listener(speech_queue, stop_queue):
     from voice import SpeechRecognizer, StreamPatcher
-    print('voice listener start')
     model_speech = SpeechRecognizer()
+
+    # test and init
+    text = model_speech.test_file('data/voice_test.mp3')
+    print('test voice:', text)
+
+    print('voice listener start')
 
     with StreamPatcher() as sp:
         winsound.Beep(500, 500)
@@ -52,16 +59,21 @@ class VoicePlayer:
 
         self.test()
 
-    def test(self):
-        img = cv2.imread('vis/1656394043254.jpg', cv2.IMREAD_COLOR)
-        bbox = self.model_vlm.predict(img, '右边的火史莱姆')
-        print('test ok')
+    def test(self): # test and init
+        img = cv2.imread('data/vlm_test.jpg')
+        bbox = self.model_vlm.predict(img, '右上的盗宝团')
+        print('test vlm:', bbox)
+
+        self.model_tracker.reset(bbox)
+        for _ in range(5):
+            bbox = self.model_tracker.predict(img)[:4]
+        print('test tracker:', bbox)
 
     def text_proc(self, text:str):
         cmd, enemy = text.split('攻击')
         pidx=cmd.find('战术')
-        plan = cmd[pidx+2:] if pidx!=-1 else '一'
-        return {'plan':plan, 'enemy':enemy}
+        plan = cmd[pidx+2:] if pidx!=-1 else 1
+        return {'plan':plan-1, 'enemy':enemy}
 
     def start(self, vis=False):
         speech_queue=Queue(maxsize=100)
@@ -69,6 +81,7 @@ class VoicePlayer:
         Process(target=voice_listener, args=(speech_queue, stop_queue)).start()
 
         if vis:
+            os.makedirs('vis', exist_ok=True)
             img_queue = Queue(maxsize=100)
             Process(target=img_saver, args=(img_queue, stop_queue)).start()
 
@@ -106,7 +119,7 @@ class VoicePlayer:
                     break
 
                 img = self.capture.cap(resize=self.pred_imsize)
-                bbox=self.model_tracker.predict(img)['track_bboxes'][:4]
+                bbox=self.model_tracker.predict(img)[:4]
 
 def make_args():
     parser = argparse.ArgumentParser()

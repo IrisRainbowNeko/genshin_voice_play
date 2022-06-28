@@ -1,5 +1,8 @@
+import os
+
 from utils import *
 import time
+from utils import *
 
 class ScriptAttacker:
     def __init__(self, script_dir, screen_size=(2560, 1440)):
@@ -7,7 +10,30 @@ class ScriptAttacker:
         self.screen_size=screen_size
         self.screen_center = (screen_size[0] // 2, screen_size[1] // 2)
 
+        self.scripts=[self.load_script(os.path.join(script_dir, file)) for file in os.listdir(script_dir)]
+
+    def load_script(self, file):
+        with open(file) as f:
+            data=[x.strip() for x in f.readlines()]
+
+        data=[x.split() for x in data if not (x.startswith('#') or len(x)<=0)]
+        return data
+
     def attack(self, plan):
-        for i in range(5):
-            mouse_ctrl.click()
-            time.sleep(0.3)
+        mouse_dict={'r':MOUSE_RIGHT, 'l':MOUSE_LEFT}
+
+        for cmd in self.scripts[plan]:
+            if cmd[0]=='key':
+                if len(cmd)==2:
+                    tap_key(ord(cmd[1].upper()), 0.1)
+                else:
+                    (press_key if cmd[1]=='down' else release_key)(ord(cmd[2]))
+            elif cmd[0]=='mouse':
+                button=mouse_dict[cmd[1]]
+                mouse_ctrl.down(button)
+                time.sleep(float(cmd[2]))
+                mouse_ctrl.up(button)
+            elif cmd[0]=='delay':
+                time.sleep(float(cmd[1]))
+            else:
+                raise ValueError("unknown cmd")

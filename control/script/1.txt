@@ -1,0 +1,31 @@
+#凌华冰队
+#猫猫盾
+key 2
+delay 0.1
+key down e
+delay 0.5
+key up e
+delay 0.3
+
+key 3
+delay 0.1
+mouse r 0.2
+delay 0.3
+key e
+delay 0.6
+
+#普攻+重击
+mouse l 0.1
+delay 0.2
+mouse l 0.1
+delay 0.2
+mouse l 0.1
+delay 0.2
+mouse l 0.6
+delay 0.2
+
+key down w
+delay 0.1
+mouse r 0.2
+delay 0.05
+key up w

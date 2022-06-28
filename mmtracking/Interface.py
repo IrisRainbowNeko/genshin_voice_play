@@ -26,4 +26,4 @@ class TrackerInterface:
     def predict(self, img):
         result = inference_sot(self.model, img, self.init_bbox, frame_id=self.frame_id)
         self.frame_id+=1
-        return result
+        return result['track_bboxes']

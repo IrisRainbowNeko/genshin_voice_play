@@ -27,10 +27,13 @@ def mouse_click(x, y, button=MOUSE_LEFT):
 def release_key(key_code):
     win32api.keybd_event(key_code, win32api.MapVirtualKey(key_code, 0), win32con.KEYEVENTF_KEYUP, 0)
 
-
 def press_key(key_code):
     win32api.keybd_event(key_code, win32api.MapVirtualKey(key_code, 0), 0, 0)
 
+def tap_key(key_code, t):
+    press_key(key_code)
+    time.sleep(t)
+    release_key(key_code)
 
 class MouseController:
     def __init__(self, sx, sy):
@@ -42,11 +45,11 @@ class MouseController:
         self.px+=dx
         self.py+=dy
 
-    def down(self):
-        mouse_down(self.px, self.py)
+    def down(self, button=MOUSE_LEFT):
+        mouse_down(self.px, self.py, button)
 
-    def up(self):
-        mouse_up(self.px, self.py)
+    def up(self, button=MOUSE_LEFT):
+        mouse_up(self.px, self.py, button)
 
     def click(self):
         self.down()
