@@ -1,4 +1,8 @@
-import string
+import sys
+import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(BASE_DIR)
+
 import PIL.Image as Image
 import matplotlib.pyplot as plt
 import cv2
@@ -10,7 +14,7 @@ from models.tokenization_bert import BertTokenizer
 from torchvision import transforms
 
 class XVLMInterface:
-    def __init__(self, config_path = './configs/Grounding_bbox_genshin.yaml', checkpoint = './output/genshin_v1/checkpoint_best.pth', device = 'cuda:0'):
+    def __init__(self, config_path = 'xvlm/configs/Grounding_bbox_genshin.yaml', checkpoint = 'xvlm/output/genshin_v1/checkpoint_best.pth', device = 'cuda:0'):
         self.config = yaml.load(open(config_path, 'r'), Loader=yaml.Loader)
         self.device = device
         self.model = self.init_model_with_checkpoint(checkpoint)

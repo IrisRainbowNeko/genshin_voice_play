@@ -10,7 +10,7 @@ import numpy as np
 import torch
 import torch.distributed as dist
 
-from utils.cider.pyciderevalcap.ciderD.ciderD import CiderD
+from .cider.pyciderevalcap.ciderD.ciderD import CiderD
 
 
 class ScstRewardCriterion(torch.nn.Module):

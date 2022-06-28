@@ -10,8 +10,8 @@ import torch
 from mmtrack.apis import inference_sot, init_model
 
 class TrackerInterface:
-    def __init__(self, config='./configs/sot/siamese_rpn/siamese_rpn_r50_20e_lasot.py',
-                       checkpoint='checkpoints/siamese_rpn_r50_20e_lasot_20220420_181845-dd0f151e.pth'):
+    def __init__(self, config='mmtracking/configs/sot/siamese_rpn/siamese_rpn_r50_20e_lasot.py',
+                       checkpoint='mmtracking/checkpoints/siamese_rpn_r50_20e_lasot_20220420_181845-dd0f151e.pth'):
         self.config=config
         self.checkpoint=checkpoint
         self.device='cuda:0'

@@ -20,7 +20,7 @@ from models.swin_transformer import SwinTransformer, interpolate_relative_pos_em
 from models.xbert import BertConfig, BertForMaskedLM, BertModel
 from models.xroberta import RobertaConfig, RobertaForMaskedLM, RobertaModel
 
-from utils import read_json
+from xvlm.utils import read_json
 
 
 class AllGather(torch.autograd.Function):
