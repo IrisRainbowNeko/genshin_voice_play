@@ -1,0 +1,24 @@
+#钟离盾
+key 1
+delay 0.4
+key down E
+delay 1.0
+key up E
+delay 1.0
+
+key 3
+delay 0.4
+mouse r 0.1
+delay 0.3
+key E
+delay 0.4
+
+#普攻+重击
+mouse l 0.1
+delay 0.2
+mouse l 0.1
+delay 0.2
+mouse l 0.1
+delay 0.2
+mouse l 0.6
+delay 0.2

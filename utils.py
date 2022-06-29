@@ -56,3 +56,10 @@ class MouseController:
         self.up()
 
 mouse_ctrl = MouseController(2560//2, 1440//2)
+
+ch_int_dict={'一':1, '二':2, '三':3, '四':4, '五':5, '六':6, '七':7, '八':8, '九':9, }
+def trans_ch_int(text):
+    if text in ch_int_dict:
+        return ch_int_dict[text]
+    else:
+        return 1

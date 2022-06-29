@@ -1,14 +1,14 @@
 #凌华冰队
 #猫猫盾
 key 2
-delay 0.1
+delay 0.4
 key down e
 delay 0.5
 key up e
 delay 0.3
 
 key 3
-delay 0.1
+delay 0.4
 mouse r 0.2
 delay 0.3
 key e

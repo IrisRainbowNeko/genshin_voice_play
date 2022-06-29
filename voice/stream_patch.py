@@ -26,9 +26,11 @@ class StreamPatcher:
                                   input=True,
                                   start=False,
                                   frames_per_buffer=self.chunk_size)
+        self.stream.start_stream()
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
+        self.stream.stop_stream()
         self.stream.close()
 
     def __iter__(self):
@@ -38,7 +40,6 @@ class StreamPatcher:
         self.rec_buffer=[]
         self.start_rec=False
 
-        self.stream.start_stream()
         return self
 
     def check_end(self):
@@ -58,7 +59,6 @@ class StreamPatcher:
             self.rec_buffer.append(chunk)
             if self.check_end():
                 self.rec_data=np.hstack(self.rec_buffer)
-                self.stream.stop_stream()
                 raise StopIteration
         else:
             if self.check_start():
